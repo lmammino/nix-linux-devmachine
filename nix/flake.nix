@@ -1,36 +1,38 @@
 {
-  description = "Example JavaScript development environment for Zero to Nix";
+  description = "Personal flake with commonly used software on VDI";
 
-  # Flake inputs
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2405.*.tar.gz";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  # Flake outputs
-  outputs = { self, nixpkgs }:
-    let
-      # Systems supported
-      allSystems = [
-        "x86_64-linux" # 64-bit Intel/AMD Linux
-        "aarch64-linux" # 64-bit ARM Linux
-        "x86_64-darwin" # 64-bit Intel macOS
-        "aarch64-darwin" # 64-bit ARM macOS
+  outputs = inputs@{ self, nixpkgs, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
+  {
+    # packages.x86_64-linux.default = inputs.home-manager.nixosModules.home-manager {
+    #   # home-manager.useGlobalPkgs = true;
+    #   inherit pkgs;
+    #   lib = nixpkgs.lib;
+    #   config = {};
+    #   utils = nixpkgs.lib.utils;
+    # };
+    
+    packages.x86_64-linux.default = pkgs.buildEnv {
+      name = "luciano";
+      paths = with pkgs; [
+        bashInteractive
+        home-manager
+        starship
+        python3
+        nodejs_22
+        corepack_22
+        awscli2
+        neofetch
+        gh
       ];
-
-      # Helper to provide system-specific attributes
-      forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
-    in
-    {
-      # Development environment output
-      devShells = forAllSystems ({ pkgs }: {
-        default = pkgs.mkShell {
-          # The Nix packages provided in the environment
-          packages = with pkgs; [
-            nodejs_18 # Node.js 18, plus npm, npx, and corepack
-          ];
-        };
-      });
     };
+  };
 }

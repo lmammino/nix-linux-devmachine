@@ -37,4 +37,10 @@ mkdir -p .config/nix
 ln -s $HOME/repos/.dotfiles/nix/config/nix.conf .config/nix/nix.conf
 ```
 
-TBC
+# 4. Install flake
+
+in the `nix` folder
+
+```bash
+nix profile install .#
+```
