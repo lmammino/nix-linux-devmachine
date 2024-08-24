@@ -12,6 +12,8 @@ This includes:
 
 # Install
 
+You can execute `setup.sh` or run the following steps manually:
+
 ## 1. Install nix (single user install)
 
 ```bash

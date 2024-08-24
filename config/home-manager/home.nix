@@ -24,6 +24,8 @@
     awscli2
     neofetch
     gh
+    rustup
+    atuin
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -85,6 +87,17 @@
     shellInit = ''
       source /home/luciano.mammino/.nix-profile/etc/profile.d/nix.fish
     '';
+    plugins = [
+      {
+        name = "z";
+        src = pkgs.fetchFromGitHub {
+          owner = "jethrokuan";
+          repo = "z";
+          rev = "85f863f20f24faf675827fb00f3a4e15c7838d76";
+          sha256 = "+FUBM7CodtZrYKqU542fQD+ZDGrd2438trKM0tIESs0=";
+        };
+      }
+    ];
   };
 
   programs.starship = {
@@ -94,17 +107,10 @@
       add_newline = false; 
       hostname.style = "bold green"; # don't like the default
       username.style_user = "bold blue"; # don't like the default
-      format = lib.concatStrings [
-        "$all"
-        "$line_break"
-        "$package"
-        "$line_break"
-        "$character"
-      ];
       scan_timeout = 2000;
       character = { 
-        success_symbol = "➜";
-        error_symbol = "➜";
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
       };
     };
     enableTransience = true;
