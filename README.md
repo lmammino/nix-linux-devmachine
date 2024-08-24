@@ -10,15 +10,17 @@ This includes:
 - Other system tools and utilities
 
 
-# 1. Install nix (single user install)
+# Install
+
+## 1. Install nix (single user install)
 
 ```bash
 sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
 curl -L https://nixos.org/nix/install | sh
-. /home/luciano.mammino/.nix-profile/etc/profile.d/nix.sh
+. $HOME/.nix-profile/etc/profile.d/nix.sh
 ```
 
-# 2. Clone the repo
+## 2. Clone the repo
 
 In the home dir:
 
@@ -28,19 +30,38 @@ cd repos
 git clone https://git.renre.com/luciano-mammino/.dotfiles.git
 ```
 
-# 3. Symlink the nix.conf
+## 3. Symlink the nix.conf
 
 in the home dir
 
 ```bash
 mkdir -p .config/nix
-ln -s $HOME/repos/.dotfiles/nix/config/nix.conf .config/nix/nix.conf
+ln -s $HOME/repos/.dotfiles/config/nix.conf $HOME/.config/nix/nix.conf
+ln -s $HOME/repos/.dotfiles/config/home-manager $HOME/.config/home-manager
 ```
 
-# 4. Install flake
-
-in the `nix` folder
+## 4. Install and enable home-manager
 
 ```bash
-nix profile install .#
+nix-shell -p home-manager --command "home-manager switch" 
+```
+
+
+# Configure the terminal emulator
+
+This configuration will install and use fish shell.
+
+In order to use fish shell directly you should use the following binary path in your terminal configuration:
+
+```bash
+type fish
+```
+
+
+# Update and refresh the configuration
+
+If you perform any change to the configuration, you should commit all the changes and then run the following command for the new config to be enabled:
+
+```bash
+home-manager switch
 ```
