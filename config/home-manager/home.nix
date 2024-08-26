@@ -25,7 +25,7 @@
     neofetch
     gh
     rustup
-    atuin
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -115,4 +115,23 @@
     };
     enableTransience = true;
   };
+
+  programs.atuin = {
+    enable = true;
+    enableFishIntegration = true;
+    flags = [
+      "--disable-up-arrow"
+    ];
+    settings = {
+      auto_sync = false;
+      dialect = "uk";
+      search_mode = "fuzzy";
+      filter_mode = "directory";
+      style = "full";
+      show_preview = true;
+    };
+  };
+
+  programs.ripgrep.enable = true;
+  programs.bat.enable = true;
 }
