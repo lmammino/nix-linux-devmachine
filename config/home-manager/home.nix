@@ -18,6 +18,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    glxinfo
+    libGL
     nerdfonts
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     python3
@@ -139,6 +141,11 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    settings = {
+      manager = {
+        show_hidden = true;
+      };
+    };
   };
 
   programs.ripgrep.enable = true;
@@ -156,5 +163,28 @@
 
   programs.alacritty = {
     enable = true;
+  };
+
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      return {
+        font = wezterm.font("JetBrainsMono Nerd Font"),
+        font_size = 24.0,
+        color_scheme = "Tomorrow Night",
+        front_end = "Software",
+        enable_wayland = false,
+        default_prog = { "fish" }
+      }
+    '';
+  };
+
+  programs.zellij = {
+    enable = false;
+    enableFishIntegration = true;
+    settings = {
+      default_shell = "fish";
+      mouse_mode = false;
+    };
   };
 }
