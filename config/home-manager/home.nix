@@ -18,6 +18,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    nerdfonts
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     python3
     nodejs_22
     corepack_22
@@ -82,6 +84,8 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  fonts.fontconfig.enable = true;
+
   programs.fish = { 
     enable = true;
     shellInit = ''
@@ -132,6 +136,25 @@
     };
   };
 
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.ripgrep.enable = true;
   programs.bat.enable = true;
+
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 24;
+    };
+    shellIntegration.enableFishIntegration = true;
+    theme = "Catppuccin-Macchiato";
+  };
+
+  programs.alacritty = {
+    enable = true;
+  };
 }
