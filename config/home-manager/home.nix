@@ -23,6 +23,8 @@ in {
     nerdfonts
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     python3
+    poetry
+    just
     nodejs_22
     corepack_22
     awscli2
