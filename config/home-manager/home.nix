@@ -24,6 +24,7 @@ in {
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     python3
     poetry
+    pyenv
     just
     nodejs_22
     corepack_22
