@@ -23,6 +23,7 @@ in {
     nerdfonts
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     python3
+    python312Packages.cffi
     poetry
     pyenv
     just
@@ -32,6 +33,9 @@ in {
     neofetch
     gh
     rustup
+    fzf
+    jq
+    ijq
   ] ++ [
     jwtinfo.packages.${system}.default
   ]);
@@ -175,4 +179,14 @@ in {
       mouse_mode = false;
     };
   };
+
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.granted = {
+    enable = true;
+  };
+
 }
