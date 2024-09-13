@@ -25,6 +25,7 @@ nix-shell -p home-manager --command "home-manager switch"
 
 
 echo -e "\n\n>>> 5. Fixing docker permissions\n\n\"
+sudo usermod -aG docker $USER
 sudo setfacl -m user:$USER:rw /var/run/docker.sock
 
 echo -e "\n\n>>> ALL DONE\n\n"
