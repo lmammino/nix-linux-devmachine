@@ -23,5 +23,9 @@ ln -s $HOME/repos/.dotfiles/config/home-manager $HOME/.config/home-manager
 echo -e "\n\n>>> 4. Installing and enabling home-manager\n\n"
 nix-shell -p home-manager --command "home-manager switch"
 
+
+echo -e "\n\n>>> 5. Fixing docker permissions\n\n\"
+sudo setfacl -m user:$USER:rw /var/run/docker.sock
+
 echo -e "\n\n>>> ALL DONE\n\n"
 type fish
